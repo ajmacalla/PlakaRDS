@@ -206,6 +206,7 @@ public class Theme {
 				return this;
 			}
 		}
+	}
 	    
 		public static void styleTable (JTable t, int[] widths, int[] align, int rowH) {
 			t.setRowHeight(rowH);
@@ -254,6 +255,41 @@ public class Theme {
 			});
 		}
 		
+		static void rows(JTable t, int col, int width) {
+			Wrap w = new Wrap();
+			Insets in = w.getInsets();
+			for (int r = 0; r < t.getRowCount(); r++) {
+				w.setText(String.valueOf(t.getValueAt(r, col)));
+				w.setSize(width, 10);
+				
+				View v = w.getUI().getRootView(w);
+				v.setSize(width - in.left - in.right, 0);
+				int h = (int) Math.ceil(v.getPreferredSpan(View.Y_AXIS)) + in.top + in.bottom;
+				t.setRowHeight(r, Math.max(36, h));
+			}
+		}
 		
+		public static void fillFeedback(JTable t, List<Data.Review> list, boolean numbered, int max) {
+			List<Object[]> rows = new ArrayList<>();
+			int n = 0;
+			for (int i = list.size() - 1; i >= 0 && n < max; i--, n++) {
+				Data.Review r = list.get(i);
+				rows.add(numbered ? new Object[]{n + 1, stars(r.stars), r.text} : new Object[]{stars(r.stars), r.text});
+			}
+			if (rows.isEmpty()) {
+				String none = "No comments yet. Be the first to share your thoughts!";
+				rows.add(numbered ? new Object[]{"", "", none} : new Object[]{"", none});
+			}
+			String[] cols = numbered ? new String[]{"#", "Rating", "Comment"} : new String[]{"Rating", "Latest comments"};
+			int[] widths = numbered ? new int[]{50, 150, 660} : new int[]{150, 710};
+			int[] align = numbered ? new int[]{SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.LEFT}
+									: new int[]{SwingConstants.LEFT, SwingConstants.LEFT};
+			t.setModel(new Grid(rows.toArray(new Object[0][]), cols));
+			styleTable(t, widths, align, 36);
+			int last = cols.length - 1;
+			t.getColumnModel().getColumn(last).setCellRenderer(new Wrap());
+			rows(t, last, widths[last]);
+			t.clearSelection();
+		}
 	}
 }
