@@ -81,11 +81,11 @@ public class Theme {
 	}
 	
 	public static void info(Component parent, String msg) {
-        JOptionPane.showMessageDialog(parent, msg, TITLE, JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(parent, msg, TITLE, JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	public static int pxInch(double inches) {
-        return (int) Math.round(inches * Toolkit.getDefaultToolkit().getScreenResolution());
+		return (int) Math.round(inches * Toolkit.getDefaultToolkit().getScreenResolution());
 	}
 	
 	public static Border titled(String text) {
@@ -117,6 +117,7 @@ public class Theme {
 				ic = loadImg(file, size);
 				iconCache.put(key, ic);
 			}
+		}
 			
 		static Icon loadImg(String f, int size) {
 			if (f != null && !f.isEmpty()) {
@@ -129,24 +130,130 @@ public class Theme {
 						if (bi != null) {
 							int s = Math.min(bi.getWidth(), bi.getHeight());
 							BufferedImage sq = bi.getSubimage((bi.getWidth() - s) / 2, (bi.getHeight() - s) / 2, s, s);
-	                        return new ImageIcon(sq.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+							return new ImageIcon(sq.getScaledInstance(size, size, Image.SCALE_SMOOTH));
 						}
 					} catch (Exception e) {
 						}
 					}
 				}
-	        BufferedImage ph = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-	        Graphics2D g = ph.createGraphics();
-	        g.setColor(SKY);
-	        g.fillRect(0, 0, size, size);
-	        g.setColor(DEEP);
-	        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, Math.max(10, size / 3)));
-	        FontMetrics fm = g.getFontMetrics();
-	        String note = "\u266A";
-	        g.drawString(note, (size - fm.stringWidth(note)) / 2, (size + fm.getAscent() - fm.getDescent()) / 2);
-	        g.dispose();
-	        return new ImageIcon(ph);
+			BufferedImage ph = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+			Graphics2D g = ph.createGraphics();
+			g.setColor(SKY);
+			g.fillRect(0, 0, size, size);
+			g.setColor(DEEP);
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, Math.max(10, size / 3)));
+			FontMetrics fm = g.getFontMetrics();
+			String note = "\u266A";
+			g.drawString(note, (size - fm.stringWidth(note)) / 2, (size + fm.getAscent() - fm.getDescent()) / 2);
+			g.dispose();
+			return new ImageIcon(ph);
 		}
+		
+		public static Icon logoIcon(int width) {
+			File f = new File("PlakaRDSLogo.png", LOGO);
+			if (!f.exists()) f = new File(LOGO);
+			if (!f.exists()) return null;
+			try {
+				BufferedImage bi = ImageIO.read(f);
+				if (bi == null) return null;
+				int h = Math.max(1, (int) Math.round((double) width * bi.getHeight() / bi.getWidth()));
+				return new ImageIcon(bi.getScaledInstance(width, h, Image.SCALE_SMOOTH));
+			} catch (Exception e) { 
+				return null; 
+			}
+	    
+		public static class Grid extends DefaultTableModel {
+			public Grid(Object[][] data, String[] cols) { 
+				super(data, cols); 
+			}
+			@Override public boolean isCellEditable(int r, int c) { 
+				return false; 
+			}
+		}
+	    
+		public static class Cell extends DefaultTableCellRenderer {
+			final int align;
+	    	
+			public Cell(int align) {
+				this.align = align;
+			}
+			@Override public Component getTableCellRendererComponent(JTable t, Object v, boolean sel, 
+					boolean foc, int row, int col) {
+				super.getTableCellRendererComponent(t, v instanceof Icon ? "" : v, sel, false, row, col);
+				setIcon(v instanceof Icon ? (Icon) v : null);
+				setHorizontalAlignment(v instanceof Icon ? SwingConstants.CENTER : align);
+				setFont(font(Font.PLAIN, 15));
+				setForeground(TEXT);
+				setBackground(sel ? SELECT : (row % 2 == 0 ? Color.WHITE : ZEBRA));
+				setBorder(new EmptyBorder(2, 12, 2, 12));
+				return this;
+			}
+		}
+	    
+		public static class Wrap extends JTextArea implements TableCellRenderer {
+			public Wrap() {
+				setLineWrap(true);
+				setWrapStyleWord(true);
+				setOpaque(true);
+				setFont(font(Font.PLAIN, 15));
+				setBorder(new EmptyBorder(6, 12, 6, 12));
+			}
+			@Override public Component getTableCellRendererComponent(JTable t, Object v, boolean sel, 
+					boolean foc, int row, int col) {
+				setText(v == null ? "" : v.toString());
+				setForeground(TEXT);
+				setBackground(sel ? SELECT : (row % 2 == 0 ? Color.WHITE : ZEBRA));
+				return this;
+			}
+		}
+	    
+		public static void styleTable (JTable t, int[] widths, int[] align, int rowH) {
+			t.setRowHeight(rowH);
+			t.setShowGrid(false);
+			t.setIntercellSpacing(new Dimension(0, 0));
+			t.setFillsViewportHeight(true);
+			t.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			t.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+			
+			for (int i = 0; i < t.getColumnCount(); i++) {
+				t.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+				t.getColumnModel().getColumn(i).setCellRenderer(new Cell(align[i]));
+			}
+			
+			JTableHeader h = t.getTableHeader();
+			h.setReorderingAllowed(false);
+			h.setResizingAllowed(false);
+			h.setPreferredSize(new Dimension(0, 36));
+			h.setDefaultRenderer(new DefaultTableCellRenderer() {
+				@Override public Component getTableCellRendererComponent(JTable tb, Object v, boolean sel, boolean foc, int row, int col) {
+					super.getTableCellRendererComponent(tb, v, false, false, row, col);
+					setBackground(DEEP);
+					setForeground(Color.WHITE);
+					setFont(font(Font.BOLD, 14));
+					setHorizontalAlignment(align[col] == SwingConstants.CENTER ? SwingConstants.CENTER : SwingConstants.LEFT);
+					setBorder(new EmptyBorder(0, 12, 0, 12));
+					return this;
+				}
+			});
+			if (t.getRowCount() > 0) t.setRowSelectionInterval(0, 0);
+		}
+
+		public static void scroll(JScrollPane sp) {
+			sp.setBorder(new LineBorder(LINE));
+			sp.getViewport().setBackground(Color.WHITE);
+		}
+		
+		public static void doubleClick(JTable t, IntConsumer action) {
+			t.addMouseListener(new MouseAdapter() {
+				@Override public void clicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						int r = t.rowAtPoint(e.getPoint());
+						if (r >= 0) action.accept(r);
+					}
+				}
+			});
+		}
+		
 		
 	}
 }
