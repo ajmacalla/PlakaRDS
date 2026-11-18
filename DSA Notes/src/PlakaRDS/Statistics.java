@@ -30,7 +30,7 @@ public class Statistics extends JPanel {
 	public void setVal(String v) {
 		lblVal.setText(v);
 	}
-	public void setCap(String C) {
+	public void setCap(String c) {
 		lblCap.setText(c);
 	}
 }
