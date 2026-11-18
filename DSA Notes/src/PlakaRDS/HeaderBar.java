@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Component;
 
 public class HeaderBar extends JPanel {
+	
 	private final JLabel heading = new JLabel("Heading");
 	private final JLabel sub = new JLabel("Subheading");
 	
