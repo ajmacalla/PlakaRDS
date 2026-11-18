@@ -24,7 +24,7 @@ public class Theme {
 	public static final double ALBUM = 2.0; // album photo size inches
 	public static final double ARTIST = 10; // artist photo size millimeter
 	public static final String STAR = "\u2605", STAR_EMPTY = "\u2606";
-	public static final String[] SORTS = {"A-z", "Highest rated", "Lowest rated"};
+	public static final String[] SORTS = {"A-Z", "Highest rated", "Lowest rated"};
 	public static final String[] RATE_MEANING = {
 			"I don't like it.", "It's not for me.", "It's okay.", "I like it.", "I absolutely love it."
 			};
@@ -100,15 +100,16 @@ public class Theme {
 		public Change(Runnable r) {
 			this.r = r;
 		}
-		public void insertUpd(DocumentEvent e) {
+		@Override public void insertUpdate(DocumentEvent e) {
 			r.run();
 		}
-		public void removeUpd(DocumentEvent e) {
+		@Override public void removeUpdate(DocumentEvent e) {
 			r.run();
 		}
-		public void changedUpd(DocumentEvent e) {
+		@Override public void changedUpdate(DocumentEvent e) {
 			r.run();
 		}
+	}
 		
 		public static Icon img(String file, int size) {
 			String key = file + "@" + size;
@@ -117,6 +118,7 @@ public class Theme {
 				ic = loadImg(file, size);
 				iconCache.put(key, ic);
 			}
+			return ic;
 		}
 			
 		static Icon loadImg(String f, int size) {
@@ -136,6 +138,7 @@ public class Theme {
 						}
 					}
 				}
+
 			BufferedImage ph = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
 			Graphics2D g = ph.createGraphics();
 			g.setColor(SKY);
@@ -150,7 +153,7 @@ public class Theme {
 		}
 		
 		public static Icon logoIcon(int width) {
-			File f = new File("PlakaRDSLogo.png", LOGO);
+			File f = new File("covers", LOGO);
 			if (!f.exists()) f = new File(LOGO);
 			if (!f.exists()) return null;
 			try {
@@ -161,6 +164,7 @@ public class Theme {
 			} catch (Exception e) { 
 				return null; 
 			}
+		}
 	    
 		public static class Grid extends DefaultTableModel {
 			public Grid(Object[][] data, String[] cols) { 
@@ -206,7 +210,6 @@ public class Theme {
 				return this;
 			}
 		}
-	}
 	    
 		public static void styleTable (JTable t, int[] widths, int[] align, int rowH) {
 			t.setRowHeight(rowH);
@@ -239,14 +242,14 @@ public class Theme {
 			if (t.getRowCount() > 0) t.setRowSelectionInterval(0, 0);
 		}
 
-		public static void scroll(JScrollPane sp) {
+		public static void styleScroll(JScrollPane sp) {
 			sp.setBorder(new LineBorder(LINE));
 			sp.getViewport().setBackground(Color.WHITE);
 		}
 		
 		public static void doubleClick(JTable t, IntConsumer action) {
 			t.addMouseListener(new MouseAdapter() {
-				@Override public void clicked(MouseEvent e) {
+				@Override public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() == 2) {
 						int r = t.rowAtPoint(e.getPoint());
 						if (r >= 0) action.accept(r);
@@ -259,7 +262,6 @@ public class Theme {
 			Wrap w = new Wrap();
 			Insets in = w.getInsets();
 			for (int r = 0; r < t.getRowCount(); r++) {
-				w.setText(String.valueOf(t.getValueAt(r, col)));
 				w.setSize(width, 10);
 				
 				View v = w.getUI().getRootView(w);
@@ -292,4 +294,3 @@ public class Theme {
 			t.clearSelection();
 		}
 	}
-}

@@ -9,7 +9,7 @@ import java.util.List;
 public class ArtistDialog extends JDialog {
 	
 	private final JComboBox<String> cmbSort = new JComboBox<>(Theme.SORTS);
-	private final JTextField txtSearch = new JTextField(50);
+	private final JTextField txtSearch = new JTextField(16);
 	private final JTable table = new JTable(new Theme.Grid(new Object[0][], new String[] {
 			" ", "Artist", "Album", "Rating"
 	}));
@@ -27,7 +27,7 @@ public class ArtistDialog extends JDialog {
 		
 		HeaderBar header = new HeaderBar();
 		header.setHead("Artists");
-		header.setSub("Pick an artist to see their album and songs");
+		header.setSub("Pick an artist to see their album and songs.");
 		getContentPane().add(header, BorderLayout.NORTH);
 		
 		JPanel pnlBody = new JPanel(new BorderLayout(0, 10));
@@ -68,7 +68,7 @@ public class ArtistDialog extends JDialog {
 		pnlButton.add(btnBack);
 		
 		Theme.styleTable(table, new int[] {90, 260, 290, 220},
-				new int[] {SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.LEFT}, 72);
+				new int[] {SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.LEFT, SwingConstants.LEFT}, 72);
 		
 		cmbSort.setSelectedIndex(Data.artistSort);
 		cmbSort.addActionListener(e -> refresh());
@@ -89,7 +89,7 @@ public class ArtistDialog extends JDialog {
 		for (String a : shown) {
 			String album = Data.album.get(a);
 			model.addRow(new Object[] {Theme.img(Data.artistPic.get(a), 58), a,
-					album == null > "-" : album, Data.artistAvgText(a)
+					album == null ? "-" : album, Data.artistAvgText(a)
 			});
 		}
 		if (!shown.isEmpty())
@@ -104,7 +104,7 @@ public class ArtistDialog extends JDialog {
 		}
 		open(row);
 	}
-	private void ooen(int row) {
+	private void open(int row) {
 		SongListDialog d = new SongListDialog();
 		d.setArtist(shown.get(row));
 		d.setLocationRelativeTo(this);

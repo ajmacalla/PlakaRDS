@@ -12,8 +12,8 @@ public class MainMenu extends JFrame {
 	private final Statistics crdRatings = new Statistics();
 	private final Statistics crdComments = new Statistics();
 	
-	public static void maim(String[] args) {
-		Theme.applyLookAndFeel();
+	public static void main(String[] args) {
+		Theme.btn();
 		Data.loadCatalog();
 		if (Data.catalog.isEmpty()) {
 			Theme.info(null, "No artists found in " + Data.CATALOG + ".\n\nLooking here:\n"
@@ -82,7 +82,7 @@ public class MainMenu extends JFrame {
 		stats.setBorder(new EmptyBorder(22, 24, 12, 24));
 		crdArtists.setCap("Artists");
 		crdSongs.setCap("Songs");
-		crdRatings.setCap("Ratings submitted");
+		crdRatings.setCap("Ratings");
 		crdComments.setCap("Comments");
 		
 		stats.add(crdArtists);

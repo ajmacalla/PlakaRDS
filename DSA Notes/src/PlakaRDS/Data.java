@@ -34,7 +34,8 @@ public class Data {
 		}
 		public void addRate(int stars) {
 			sumRate += stars;
-			numRate += starCount[stars]++;
+			numRate++; 
+			starCount[stars]++;
 		}
 		public double avg() {
 			return numRate == 0 ? 0 : (double) sumRate / numRate;
