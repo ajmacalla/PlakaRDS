@@ -86,7 +86,7 @@ public class Data {
 	public static String artistAvgText(String a) {
 		int n = artistCount(a);
 		return n == 0 ? "No ratings yet."
-				: String.format("%s %.1f / 5 (%d rating%s", Theme.STAR, 
+				: String.format("%s %.1f / 5 (%d rating%s)", Theme.STAR, 
 						artistAvg(a), n, n == 1 ? "" : "s");
 	}
 				// artistOrder(): sorting rules sa artists

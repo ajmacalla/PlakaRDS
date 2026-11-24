@@ -149,23 +149,25 @@ public class Theme {
 					}
 				}
 			// ito yung sa placeholder kapag wala pa img
-			BufferedImage ph = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+			BufferedImage ph = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB); // blank img
 			Graphics2D g = ph.createGraphics();
 			g.setColor(SKY);
-			g.fillRect(0, 0, size, size);
-			g.setColor(DEEP);
+			g.fillRect(0, 0, size, size); // fill sky blue yung img
+			g.setColor(DEEP); // color to ng music note
 			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, Math.max(10, size / 3)));
 			FontMetrics fm = g.getFontMetrics();
-			String note = "\u266A";
+			String note = "\u266A"; // music note symbol yan
 			g.drawString(note, (size - fm.stringWidth(note)) / 2, (size + fm.getAscent() - fm.getDescent()) / 2);
 			g.dispose();
 			return new ImageIcon(ph);
 		}
-		
+						// sa pic ng logo lang to
 		public static Icon logoIcon(int width) {
 			File f = new File("covers", LOGO);
-			if (!f.exists()) f = new File(LOGO);
-			if (!f.exists()) return null;
+			if (!f.exists()) 
+				f = new File(LOGO);
+			if (!f.exists()) 
+				return null;
 			try {
 				BufferedImage bi = ImageIO.read(f);
 				if (bi == null) return null;
