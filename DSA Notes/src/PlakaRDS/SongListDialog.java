@@ -1,3 +1,7 @@
+// (10) SongListDialog: display artist's songs
+/* songs ng artist, ave rate each songs, search function, sorting opts
+ * nagoopen ng selected song deets
+ */
 package PlakaRDS;
 
 import javax.swing.*;
@@ -72,12 +76,12 @@ public class SongListDialog extends JDialog {
         txtSearch.getDocument().addDocumentListener(new Theme.Change(this::refresh));
         Theme.doubleClick(table, this::open);
 	}
-	
+			// setArtist(): kung aling artist gusto makita
 	public void setArtist(String artist) {
 		this.artist = artist;
 		refresh();
 	}
-	
+			// refresh(): ina-update song list depends sa searching or sorting
 	private void refresh() {
 		if (artist == null) 
 			return;

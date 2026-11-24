@@ -1,3 +1,12 @@
+// (2) DATA: song data, ratings, comments, sorting, file handling
+/* load ng artist and song info from "catalog.txt"
+ * load ng ratings and comments from "ratings.txt"
+ * save ng new ratings and comments
+ * calculate ng ave rating ng songs and artist
+ * sort ng artists and songs
+ * kinukuha top-rated songs
+ */
+
 package PlakaRDS;
 
 import java.io.IOException;
@@ -37,6 +46,7 @@ public class Data {
 			numRate++; 
 			starCount[stars]++;
 		}
+				// avg = sum of ratings / number of ratings
 		public double avg() {
 			return numRate == 0 ? 0 : (double) sumRate / numRate;
 		}
@@ -48,7 +58,10 @@ public class Data {
 			return title;
 		}
 	}
-	
+	// LinkedHashMap: store key-value pairs while maintaining insertion order
+	// in here: Key = Artist name, Value = List of songs ng artist
+	// HashMap: store key-value pairs, insertion order not guaranteed
+	// in here: Key = Artist name, Value = album, artistPic, albumPic
 	public static final Map<String, List<Song>> catalog = new LinkedHashMap<>();
 	public static final Map<String, String> album = new HashMap<>();
 	public static final Map<String, String> artistPic = new HashMap<>();
@@ -76,21 +89,25 @@ public class Data {
 				: String.format("%s %.1f / 5 (%d rating%s", Theme.STAR, 
 						artistAvg(a), n, n == 1 ? "" : "s");
 	}
-	
+				// artistOrder(): sorting rules sa artists
+				// Comparator<>: para mag-define ng rules kung paanu icocompare at isosort objects
 	public static Comparator<String> artistOrder(int mode) {
-		Comparator<String> byName = String.CASE_INSENSITIVE_ORDER;
+		Comparator<String> byName = String.CASE_INSENSITIVE_ORDER; // ignore cases
 		if (mode == 0)
 			return byName;
 		Comparator<String> byAvg = (a, b) -> {
 			boolean ra = artistCount(a) > 0, rb = artistCount(b) > 0;
+			// gets the total num of ratings by artists and checks if it's greater than zero
 			if (ra != rb)
 				return ra ? -1 : 1;
+			// if ra is true, return -1 otherwise 1
+			// sa sorting, -1 places it before the second, otherwise yes
 			int c = Double.compare(artistAvg(a), artistAvg(b));
 			return mode == 1 ? -c : c;
 		};
 		return byAvg.thenComparing(byName);
 	}
-	
+								// songOrder(): sorting rules sa songs
 	public static Comparator<Song> songOrder(int mode) {
 		Comparator<Song> byName = (a, b) -> a.title.compareToIgnoreCase(b.title);
 		if (mode == 0)
@@ -104,9 +121,11 @@ public class Data {
 		};
 		return byAvg.thenComparing(byName);
 	}
-	
+		// topRated(): kinukuha top-rated songs
+		/* ArrayList<>(): store ng collection of elements, pwede dagdagan and bawasan
+		 * para din hindi na need mag-declare ng fixed num of songs or revieww */
 	public static List<Song> topRated() {
-		List<Song> all = new ArrayList<>();
+		List<Song> all = new ArrayList<>(); 
 		for (List<Song> l : catalog.values())
 			for (Song s : l)
 				if (s.numRate > 0)
@@ -117,7 +136,7 @@ public class Data {
 		});
 		return all;
 	}
-	
+				// loadCatalog(): reads the catalog file
 	public static void loadCatalog() {
 		Path p = Paths.get(CATALOG);
 		if (!Files.exists(p))
@@ -150,7 +169,7 @@ public class Data {
 			Theme.info(null, "Could not read " + CATALOG + ": " + e.getMessage());
 		}
 	}
-	
+					// loadRatings(): reads the saved ratings
 	public static void loadRatings() {
 		Path p = Paths.get(RATINGS);
 		if (!Files.exists(p))
@@ -177,7 +196,7 @@ public class Data {
 			}
 		} catch (IOException e) {}
 	}
-	
+					// appendRating(): aadd ng new rating sa file
 	public static void appendRating(Song s, int stars, String comment) {
 		String row = s.artist + "\t" + s.title + "\t" + stars + "\t" +
 					comment.replace("\t", " ").replace("\n", "\\n") + "\n";
@@ -188,7 +207,7 @@ public class Data {
 			Theme.info(null, "Rating counted this session, \nbut could not be saved to disk.");
 		}
 	}
-	
+					// find(): hanap ng specific song, sa search din yan
 	public static Song find(String artist, String title) {
 		List<Song> l = catalog.get(artist);
 		if (l == null)

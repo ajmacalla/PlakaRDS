@@ -1,3 +1,6 @@
+// (3) HeaderBar: header component
+// heading title, subtitle, background, header design
+
 package PlakaRDS;
 
 import javax.swing.*;
@@ -24,10 +27,11 @@ public class HeaderBar extends JPanel {
 		add(Box.createVerticalStrut(4));
 		add(sub);
 	}
-	
+			// setHead(): change ng heading
 	public void setHead(String s) {
 		heading.setText(s);
 	}
+			// setSub(): change ng subtitle
 	public void setSub(String s) {
 		sub.setText(s);
 	}

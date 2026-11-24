@@ -1,3 +1,8 @@
+// (12) TopRatedDialog: 'yung top-rated songs lang 'yan
+/* sorts songs from highest ave to lowest
+ * shows ranking, song title, artist, ave rate
+ * may opt na iopen song details and comments
+ */
 package PlakaRDS;
 
 import javax.swing.*;
@@ -79,7 +84,7 @@ public class TopRatedDialog extends JDialog {
 		refresh();
 	}
 
-	private void refresh() {
+	private void refresh() { // Data.topRated(): kinukuha lang rated songs
 		List<Data.Song> all = Data.topRated();
 		top = new ArrayList<>(all.subList(0, Math.min(10, all.size())));
 		Object[][] data = new Object[top.size()][];

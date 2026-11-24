@@ -1,3 +1,5 @@
+// (7) ViewRatingDialog: rating statistics lang
+// ave rate, sum of rate, num of rate, vote distri from 1-5 stars, percentage each rate
 package PlakaRDS;
 
 import javax.swing.*;

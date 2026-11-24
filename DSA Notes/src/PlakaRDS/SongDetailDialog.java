@@ -1,3 +1,7 @@
+// (9) SongDetailDialog: makikita song deets and connects rating/feedback windows
+/* song title, artist, album & its cover, ave rating
+ * opens rating, ratings stats, feedback windows
+ */
 package PlakaRDS;
 
 import javax.swing.*;
@@ -33,7 +37,7 @@ public class SongDetailDialog extends JDialog {
         JPanel pnlButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 8));
         pnlButtons.setBackground(Theme.BG);
         getContentPane().add(pnlButtons, BorderLayout.SOUTH);
-
+        						// opens RatingDialog
         JButton btnRate = new JButton("Rate & Comment");
         btnRate.addActionListener(e -> {
         	RatingDialog d = new RatingDialog();
@@ -43,7 +47,7 @@ public class SongDetailDialog extends JDialog {
         	refresh();
         });
         pnlButtons.add(btnRate);
-
+        						// opens ViewRatingsDialog
         JButton btnRatings = new JButton("View Ratings");
         btnRatings.addActionListener(e -> {
         	ViewRatingDialog d = new ViewRatingDialog();
@@ -52,7 +56,7 @@ public class SongDetailDialog extends JDialog {
         	d.setVisible(true);
         });
         pnlButtons.add(btnRatings);
-
+        						// opens FeedbackDialog
         JButton btnFeedback = new JButton("View Feedback");
         btnFeedback.addActionListener(e -> {
         	FeedbackDialog d = new FeedbackDialog();
@@ -61,17 +65,16 @@ public class SongDetailDialog extends JDialog {
         	d.setVisible(true);
         });
         pnlButtons.add(btnFeedback);
-
+        						// sinasara/binabalikan prev window
         JButton btnBack = new JButton("Back");
         btnBack.addActionListener(e -> dispose());
         pnlButtons.add(btnBack);
 	}
-
+			// setSong(): kung aling song gusto makita
 	public void setSong(Data.Song s) {
 		this.song = s;
 		refresh();
 	}
-    
 	private void refresh() {
 		if (song == null) return;
 		String album = Data.album.get(song.artist);

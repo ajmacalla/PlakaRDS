@@ -1,3 +1,8 @@
+// (11) ArtistDialog: displays and searches artists
+/* artist imgs & names & ave rates, album info
+ * may search functionality and sorting opts
+ * inoopen din SongListDialog
+ */
 package PlakaRDS;
 
 import javax.swing.*;

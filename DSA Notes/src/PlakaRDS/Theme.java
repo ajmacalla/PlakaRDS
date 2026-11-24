@@ -1,3 +1,11 @@
+// (1) THEME: colors, fonts, images, table styles
+/* set ng colors, fonts, and overall theme
+ * load ng artist imgs, album covers, logo
+ * create ng star ratings
+ * set ng table appearance, fonts, row heigh
+ * nalagay din placehoolder kapag wala pa images na uploaded sa "covers" folder
+ */
+
 package PlakaRDS;
 
 import javax.imageio.ImageIO;
@@ -54,13 +62,13 @@ public class Theme {
 		}
 		return Font.DIALOG;	
 	}
-	
+			// font(): font configurationg lang
 	public static Font font(int style, int size) {
 		return new Font(FONT, style, size);
 	}
 	
 	public static void btn() {
-		try {
+		try {		// LookAndFeel: apply lang ng system appearance sa Swing
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
 		catch (Exception e) {
@@ -72,7 +80,7 @@ public class Theme {
 		UIManager.put("RadioButton.font", font(Font.PLAIN, 16));
 		UIManager.put("Label.font", font(Font.PLAIN, 14));
 	}
-	
+				// stars(): shows star rating
 	public static String stars(int n) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= 5; i++)
@@ -120,7 +128,7 @@ public class Theme {
 			}
 			return ic;
 		}
-			
+				// loadImg(): load and adjust ng imgs
 		static Icon loadImg(String f, int size) {
 			if (f != null && !f.isEmpty()) {
 				File file = new File("covers", f);
@@ -210,7 +218,7 @@ public class Theme {
 				return this;
 			}
 		}
-	    
+	    				// styleTable(): style lang ng tables
 		public static void styleTable (JTable t, int[] widths, int[] align, int rowH) {
 			t.setRowHeight(rowH);
 			t.setShowGrid(false);
@@ -270,7 +278,7 @@ public class Theme {
 				t.setRowHeight(r, Math.max(36, h));
 			}
 		}
-		
+						// fillFeedback(): shows comments sa table
 		public static void fillFeedback(JTable t, List<Data.Review> list, boolean numbered, int max) {
 			List<Object[]> rows = new ArrayList<>();
 			int n = 0;

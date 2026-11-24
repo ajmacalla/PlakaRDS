@@ -1,3 +1,8 @@
+// (8) FeedbackDialog: show user comments
+/* show comments & corresponding star ratings
+ * sort comments from newest to oldest
+ * numbering sa feedback list
+ */
 package PlakaRDS;
 
 import javax.swing.*;

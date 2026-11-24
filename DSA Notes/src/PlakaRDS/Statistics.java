@@ -1,3 +1,7 @@
+// (5) Statistics: summarized statistics
+// numerical values, labels o captions, bordered card design sa welcome page
+// 'yung total artists & songs, ratings submitted & comments 'to
+
 package PlakaRDS;
 
 import javax.swing.*;

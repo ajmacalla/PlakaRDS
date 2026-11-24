@@ -1,3 +1,10 @@
+// (6) RatingDialog: para p'wede mag-rate and comment user
+/* five rating options
+ * para p'wede maglagay ng comments
+ * ina-update song rating info
+ * save rating & comment sa "ratings.txt"
+ */
+
 package PlakaRDS;
 
 import javax.swing.*;

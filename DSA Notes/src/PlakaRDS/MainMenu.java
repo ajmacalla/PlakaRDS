@@ -1,3 +1,10 @@
+// (13) MainMenu: main window; andito "main()" method
+/* apply ng app theme
+ * load ng catalog & ratings
+ * create ng main app window
+ * shows app logo & description, statistics din
+ * may navigation buttons
+ */
 package PlakaRDS;
 
 import javax.swing.*;
@@ -11,7 +18,7 @@ public class MainMenu extends JFrame {
 	private final Statistics crdSongs = new Statistics();
 	private final Statistics crdRatings = new Statistics();
 	private final Statistics crdComments = new Statistics();
-	
+					// main(): entry point ni java prog, alam mo na yan
 	public static void main(String[] args) {
 		Theme.btn();
 		Data.loadCatalog();
@@ -94,16 +101,16 @@ public class MainMenu extends JFrame {
 		JPanel pnlBtn = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 10));
 		pnlBtn.setOpaque(false);
 		south.add(pnlBtn, BorderLayout.SOUTH);
-		
+									// opens ArtistDialog
 		JButton btnBrowse = new JButton("Browse Artists");
 		btnBrowse.addActionListener(e -> {
 			ArtistDialog d = new ArtistDialog();
 			d.setLocationRelativeTo(this);
 			d.setVisible(true);
-			refreshStats();
+			refreshStats(); // refreshStats(): ina-update lang stats cards
 		});
 		pnlBtn.add(btnBrowse);
-		
+								// opens TopRatedDialog
 		JButton btnTop = new JButton("Top-Rated Songs");
 		btnTop.addActionListener(e -> {
 			TopRatedDialog d = new TopRatedDialog();
@@ -112,7 +119,7 @@ public class MainMenu extends JFrame {
 			refreshStats();
 		});
 		pnlBtn.add(btnTop);
-		
+								// closes the app
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(e -> dispose());
 		pnlBtn.add(btnExit);

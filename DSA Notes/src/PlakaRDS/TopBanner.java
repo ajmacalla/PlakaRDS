@@ -1,3 +1,6 @@
+// (4) TopBanner: display ng album cover, artist, song, rating
+// album cover & name, song & artist name, description & subtitle, ratings
+
 package PlakaRDS;
 
 import javax.swing.*;
@@ -43,7 +46,7 @@ public class TopBanner extends JPanel {
 		add(Box.createVerticalStrut(2));
 		add(lblRating);
 	}
-	
+			// content(): ina-update and img, album info, title & subtitle, rating
 	public void content(Icon album, String albumLn, String title, String sub, String rating) {
 		lblPhoto.setIcon(album);
 		lblAlbum.setText(albumLn);
