@@ -50,14 +50,14 @@ public class Theme {
 	static final Map<String, Icon> iconCache = new HashMap<>();
 	
 	static String pickFont() {
-		Set<String> have = new HashSet<>(Arrays.asList(
-				GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames())
+		Set<String> have = new HashSet<>(Arrays.asList( // nasa isang set fonts and naka-list yung array
+				GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames()) // kinukuha available fonts
 				);
-		for (String n : new String[] {"Segoe UI Symbol", "Helvetica Neue", "DejaVu Sans", "Arial Unicode MS"}) {
-			if (!have.contains(n))
+		for (String n : new String[] {"Segoe UI Symbol", "Helvetica Neue", "DejaVu Sans", "Arial Unicode MS"}) { // iteration: 1, 2, 3, 4
+			if (!have.contains(n)) // pag wala sa set yung font nisskip tapos lilipat sa next
 				continue;
 				Font f = new Font(n, Font.PLAIN, 14);
-			if (f.canDisplay('\u2605') && f.canDisplay('\u2606'))
+			if (f.canDisplay('\u2605') && f.canDisplay('\u2606')) // if kaya ma-display yung stars
 				return n;
 		}
 		return Font.DIALOG;	
@@ -84,7 +84,7 @@ public class Theme {
 	public static String stars(int n) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= 5; i++)
-			sb.append(i <= n ? STAR : STAR_EMPTY);
+			sb.append(i <= n ? STAR : STAR_EMPTY); // decides if filled star or empty ang idadagdag
 		return sb.toString();
 	}
 	
@@ -120,11 +120,13 @@ public class Theme {
 	}
 		
 		public static Icon img(String file, int size) {
-			String key = file + "@" + size;
-			Icon ic = iconCache.get(key);
+			String key = file + "@" + size; //filename@size para may identifier
+			Icon ic = iconCache.get(key); // loading ng img lng yan
 			if (ic == null)	{
 				ic = loadImg(file, size);
 				iconCache.put(key, ic);
+				/* pag null tatawagin ang loadImg para i-load tapos ilalagay result sa cache, pag may img na sa cache, di na tatawagin loadImg
+				 * pag ulit-ulit inoopen ni user artist list, di na need iload ulit sa file kung naka-cache na*/
 			}
 			return ic;
 		}
@@ -135,18 +137,18 @@ public class Theme {
 				if (!file.exists()) 
 					file = new File(f);
 				if (file.exists()) {
-					try {
-						BufferedImage bi = ImageIO.read(file);
+					try {	// ginagawang BufferedImage para ma-process ni java
+						BufferedImage bi = ImageIO.read(file); 
 						if (bi != null) {
-							int s = Math.min(bi.getWidth(), bi.getHeight());
-							BufferedImage sq = bi.getSubimage((bi.getWidth() - s) / 2, (bi.getHeight() - s) / 2, s, s);
-							return new ImageIcon(sq.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+							int s = Math.min(bi.getWidth(), bi.getHeight()); // kinukuha square proportion ng img
+							BufferedImage sq = bi.getSubimage((bi.getWidth() - s) / 2, (bi.getHeight() - s) / 2, s, s); // getSub: portion ng original img
+							return new ImageIcon(sq.getScaledInstance(size, size, Image.SCALE_SMOOTH)); // getScaled: binabago dimensions
 						}
 					} catch (Exception e) {
 						}
 					}
 				}
-
+			// ito yung sa placeholder kapag wala pa img
 			BufferedImage ph = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
 			Graphics2D g = ph.createGraphics();
 			g.setColor(SKY);
