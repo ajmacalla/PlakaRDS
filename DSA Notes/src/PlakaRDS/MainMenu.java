@@ -90,7 +90,7 @@ public class MainMenu extends JFrame {
 		crdArtists.setCap("Artists");
 		crdSongs.setCap("Songs");
 		crdRatings.setCap("Ratings");
-		crdComments.setCap("Comments");
+		crdComments.setCap("Reviews");
 		
 		stats.add(crdArtists);
 		stats.add(crdSongs);

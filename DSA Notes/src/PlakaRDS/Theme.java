@@ -294,7 +294,7 @@ public class Theme {
 				String none = "No comments yet. Be the first to share your thoughts!";
 				rows.add(numbered ? new Object[]{"", "", none} : new Object[]{"", none});
 			}
-			String[] cols = numbered ? new String[]{"#", "Rating", "Comment"} : new String[]{"Rating", "Latest comments"};
+			String[] cols = numbered ? new String[]{"#", "Rating", "Reviews"} : new String[]{"Rating", "Latest Reviews"};
 			int[] widths = numbered ? new int[]{50, 150, 660} : new int[]{150, 710};
 			int[] align = numbered ? new int[]{SwingConstants.CENTER, SwingConstants.LEFT, SwingConstants.LEFT}
 									: new int[]{SwingConstants.LEFT, SwingConstants.LEFT};

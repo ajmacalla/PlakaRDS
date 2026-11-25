@@ -16,8 +16,8 @@ public class TopRatedDialog extends JDialog {
 	private final JTable table = new JTable(new Theme.Grid(new Object[0][],
 			new String[]{"#", "Song", "Artist", "Rating"}));
 	private final JLabel lblEmpty = new JLabel("No songs have been rated yet. Rate a song to see it here!");
-	private final JButton btnOpen = new JButton("Open Song");
-	private final JButton btnComments = new JButton("View Comments");
+	private final JButton btnOpen = new JButton("Song Details");
+	private final JButton btnComments = new JButton("View Reviews");
 	private List<Data.Song> top = new ArrayList<>();
 
 	public TopRatedDialog() {
@@ -31,7 +31,7 @@ public class TopRatedDialog extends JDialog {
 
 		HeaderBar header = new HeaderBar();
 		header.setHead("Top-Rated Songs");
-		header.setSub("Choose a song, then open it or view its comments.");
+		header.setSub("Choose a song to view its details.");
 		getContentPane().add(header, BorderLayout.NORTH);
 
 		JPanel pnlBody = new JPanel(new BorderLayout(0, 10));

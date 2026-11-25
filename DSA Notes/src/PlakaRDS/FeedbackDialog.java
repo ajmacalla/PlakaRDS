@@ -24,7 +24,7 @@ public class FeedbackDialog extends JDialog {
 		getContentPane().setBackground(Theme.BG);
 
 		header.setHead("Song");
-		header.setSub("User feedback");
+		header.setSub("User Review");
 		getContentPane().add(header, BorderLayout.NORTH);
 
 		JPanel pnlBody = new JPanel(new BorderLayout(0, 10));
@@ -47,7 +47,7 @@ public class FeedbackDialog extends JDialog {
 
 	public void setSong(Data.Song s) {
 	header.setHead(s.title);
-	header.setSub("User feedback  |  " + s.artist + "  |  " + s.comments.size() + " comment(s)");
+	header.setSub("User Review  |  " + s.artist + "  |  " + s.comments.size() + " review(s)");
 	Theme.fillFeedback(table, s.comments, true, Integer.MAX_VALUE);
 	}
 }

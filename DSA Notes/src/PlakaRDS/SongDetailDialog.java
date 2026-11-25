@@ -38,7 +38,7 @@ public class SongDetailDialog extends JDialog {
         pnlButtons.setBackground(Theme.BG);
         getContentPane().add(pnlButtons, BorderLayout.SOUTH);
         						// opens RatingDialog
-        JButton btnRate = new JButton("Rate & Comment");
+        JButton btnRate = new JButton("Rate & Review");
         btnRate.addActionListener(e -> {
         	RatingDialog d = new RatingDialog();
         	d.setSong(song);
@@ -57,7 +57,7 @@ public class SongDetailDialog extends JDialog {
         });
         pnlButtons.add(btnRatings);
         						// opens FeedbackDialog
-        JButton btnFeedback = new JButton("View Feedback");
+        JButton btnFeedback = new JButton("View Reviews");
         btnFeedback.addActionListener(e -> {
         	FeedbackDialog d = new FeedbackDialog();
         	d.setSong(song);

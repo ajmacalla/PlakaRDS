@@ -196,7 +196,7 @@ public class Data {
 			}
 		} catch (IOException e) {}
 	}
-					// appendRating(): aadd ng new rating sa file
+					// appendRating(): add ng new rating sa file
 	public static void appendRating(Song s, int stars, String comment) {
 		String row = s.artist + "\t" + s.title + "\t" + stars + "\t" +
 					comment.replace("\t", " ").replace("\n", "\\n") + "\n";

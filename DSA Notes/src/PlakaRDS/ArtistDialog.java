@@ -32,7 +32,7 @@ public class ArtistDialog extends JDialog {
 		
 		HeaderBar header = new HeaderBar();
 		header.setHead("Artists");
-		header.setSub("Pick an artist to see their album and songs.");
+		header.setSub("Select an artist to view their album and songs.");
 		getContentPane().add(header, BorderLayout.NORTH);
 		
 		JPanel pnlBody = new JPanel(new BorderLayout(0, 10));
@@ -64,7 +64,7 @@ public class ArtistDialog extends JDialog {
 		pnlButton.setBackground(Theme.BG);
 		getContentPane().add(pnlButton, BorderLayout.SOUTH);
 		
-		JButton btnOpen = new JButton("Open Artist");
+		JButton btnOpen = new JButton("View Artist");
 		btnOpen.addActionListener(e -> openSelected());
 		pnlButton.add(btnOpen);
 		

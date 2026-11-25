@@ -42,7 +42,7 @@ public class RatingDialog extends JDialog{
 
 		JPanel pnlStars = new JPanel(new GridLayout(5, 1, 0, 6));
 		pnlStars.setOpaque(false);
-		pnlStars.setBorder(Theme.titled("Your rating (required)"));
+		pnlStars.setBorder(Theme.titled("Rating (required)"));
 		pnlBody.add(pnlStars, BorderLayout.NORTH);
 
 		ButtonGroup group = new ButtonGroup();
@@ -60,7 +60,7 @@ public class RatingDialog extends JDialog{
 		txtComment.setBorder(new EmptyBorder(6, 8, 6, 8));
 
 		JScrollPane scrollComment = new JScrollPane(txtComment);
-		scrollComment.setBorder(Theme.titled("Comment (optional)"));
+		scrollComment.setBorder(Theme.titled("Review (optional)"));
 		scrollComment.setOpaque(false);
 		scrollComment.getViewport().setOpaque(false);
 		pnlBody.add(scrollComment, BorderLayout.CENTER);
@@ -89,7 +89,7 @@ public class RatingDialog extends JDialog{
 		for (int i = 0; i < 5; i++) 
 			if (all[i].isSelected()) given = i + 1;
 		if (given == 0) {
-			Theme.info(this, "Please choose a star rating first.\n(Your comment was kept.)");
+			Theme.info(this, "Please choose a star rating first.");
 			return;
         }
         String text = txtComment.getText().trim();

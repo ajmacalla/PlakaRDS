@@ -60,7 +60,7 @@ public class SongListDialog extends JDialog {
 		pnlButtons.setBackground(Theme.BG);
 		getContentPane().add(pnlButtons, BorderLayout.SOUTH);
 
-		JButton btnOpen = new JButton("Open Song");
+		JButton btnOpen = new JButton("Song Details");
 		btnOpen.addActionListener(e -> openSelected());
 		pnlButtons.add(btnOpen);
 

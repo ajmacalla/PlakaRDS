@@ -13,7 +13,7 @@ public class ViewRatingDialog extends JDialog {
 	private final Statistics crdSor = new Statistics();
 	private final Statistics crdNor = new Statistics();
 	private final JTable table = new JTable(new Theme.Grid(new Object[0][],
-			new String[]{"Stars", "Meaning", "Votes", "Share"}));
+			new String[]{"Rating", "Description", "Count", "Percentage"}));
 
 	public ViewRatingDialog() {
 		setTitle(Theme.TITLE);
@@ -36,8 +36,8 @@ public class ViewRatingDialog extends JDialog {
 		JPanel pnlCards = new JPanel(new GridLayout(1, 3, 14, 0));
 		pnlCards.setOpaque(false);
 		crdAvg.setCap("Average Rating");
-		crdSor.setCap("Sum of Ratings (SOR)");
-		crdNor.setCap("Number of Ratings (NOR)");
+		crdSor.setCap("Sum of Ratings");
+		crdNor.setCap("Number of Ratings");
 		pnlCards.add(crdAvg);
 		pnlCards.add(crdSor);
 		pnlCards.add(crdNor);
